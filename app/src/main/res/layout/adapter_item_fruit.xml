@@ -3,20 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="10dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Name"/>
 
     <TextView
         android:id="@+id/tv_botanical_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:textStyle="italic"
+        android:text="Botanical Name"/>
 
     <TextView
         android:id="@+id/tv_other_names"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:text="Other Names"/>
 </LinearLayout>

@@ -30,6 +30,10 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.FruitViewHol
         }
     }
 
+    public void setDataSet(List<Fruit> dataSet) {
+        this.mDataset = dataSet;
+    }
+
     @NonNull
     @Override
     public FruitAdapter.FruitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

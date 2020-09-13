@@ -1,9 +1,18 @@
 package com.example.tropicalfruitlist.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Fruit {
+    @SerializedName("tfvname")
     private String name;
+
+    @SerializedName("botname")
     private String botanicalName;
+
+    @SerializedName("othname")
     private String otherNames;
+
+    @SerializedName("imageurl")
     private String imageUrl;
 
     public Fruit(String name, String botanicalName, String otherNames, String imageUrl) {
@@ -27,5 +36,21 @@ public class Fruit {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBotanicalName(String botanicalName) {
+        this.botanicalName = botanicalName;
+    }
+
+    public void setOtherNames(String otherNames) {
+        this.otherNames = otherNames;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
