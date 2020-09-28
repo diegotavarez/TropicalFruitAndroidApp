@@ -3,6 +3,9 @@ package com.example.tropicalfruitlist.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.SearchView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,17 +29,22 @@ public class MainActivity extends Activity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     private List<Fruit> fruitList = new ArrayList<>();
+    private Activity mContext;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        searchView = (SearchView) findViewById(R.id.searchView);
+
         recyclerView = findViewById(R.id.rv_fruit_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new FruitAdapter(fruitList);
+        mContext = this;
+        mAdapter = new FruitAdapter(fruitList, mContext);
         recyclerView.setAdapter(mAdapter);
 
         loadData();
@@ -49,7 +57,7 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(Call<Pojo> call, Response<Pojo> response) {
                 fruitList = new ArrayList(response.body().getFruitList());
-                mAdapter = new FruitAdapter(fruitList);
+                mAdapter = new FruitAdapter(fruitList, mContext);
                 recyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
             }
@@ -61,13 +69,24 @@ public class MainActivity extends Activity {
         });
     }
 
-//    private void loadData(){
-//        Fruit fruit1 = new Fruit("Almond", "runus dulcis", "Amendoa", "http://tropicalfruitandveg.com/thumb.php?image=images/almondfruit.jpg");
-//        fruitList.add(fruit1);
-//
-//        Fruit fruit2 = new Fruit("Almond", "runus dulcis", "Amendoa", "http://tropicalfruitandveg.com/thumb.php?image=images/almondfruit.jpg");
-//        fruitList.add(fruit2);
-//
-//        mAdapter.notifyDataSetChanged();
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
 }

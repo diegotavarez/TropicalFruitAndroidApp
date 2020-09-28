@@ -1,13 +1,16 @@
 package com.example.tropicalfruitlist.adapters;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.tropicalfruitlist.R;
 import com.example.tropicalfruitlist.model.Fruit;
 
@@ -15,18 +18,22 @@ import java.util.List;
 
 public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.FruitViewHolder>{
     private List<Fruit> mDataset;
+    private Activity mContext;
 
-    public FruitAdapter(List<Fruit> mDataset) {
+    public FruitAdapter(List<Fruit> mDataset, Activity context) {
         this.mDataset = mDataset;
+        this.mContext = context;
     }
 
     public static class FruitViewHolder extends RecyclerView.ViewHolder {
         public TextView name, botanicalName, otherNames;
+        public ImageView fruitImg;
         public FruitViewHolder(View v) {
             super(v);
             name = v.findViewById(R.id.tv_name);
             botanicalName = v.findViewById(R.id.tv_botanical_name);
             otherNames = v.findViewById(R.id.tv_other_names);
+            fruitImg = (ImageView) v.findViewById(R.id.fruit_img);
         }
     }
 
@@ -50,6 +57,14 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.FruitViewHol
         holder.name.setText(item.getName());
         holder.botanicalName.setText(item.getBotanicalName());
         holder.otherNames.setText(item.getOtherNames());
+
+        Glide
+        .with(mContext)
+        .asDrawable()
+        .load(item.getImageUrl())
+        .centerCrop()
+        .placeholder(R.drawable.ic_launcher_background)
+        .into(holder.fruitImg);
     }
 
     @Override
